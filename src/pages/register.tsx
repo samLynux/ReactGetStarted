@@ -28,7 +28,7 @@ class Register extends Component {
         
         this.setState({
             redirect: true
-        })
+        });
     }
 
 
@@ -40,17 +40,17 @@ class Register extends Component {
 
 
         return (
-            <main className="form-signin">
+            <main className="form-register">
             <form onSubmit={this.submit}>
               <h1 className="h3 mb-3 fw-normal">Please Register</h1>
           
-                <input className="form-control" placeholder="First Name"
+                <input className="form-control" placeholder="First Name" required
                     onChange={e =>  this.first_name = e.target.value}/>
 
-                <input className="form-control" placeholder="Last Name"
+                <input className="form-control" placeholder="Last Name" required
                     onChange={e =>  this.last_name = e.target.value}/>
 
-                <input type="email" className="form-control" placeholder="Email"
+                <input type="email" className="form-control" placeholder="Email" required
                     onChange={e =>  this.email = e.target.value}/>
                 
               
