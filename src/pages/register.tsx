@@ -5,9 +5,9 @@ class Register extends Component {
     render(){
         return (
             <div >
-              Dashboard
+              Register
             </div>
-        )
+        );
     }
 }
 

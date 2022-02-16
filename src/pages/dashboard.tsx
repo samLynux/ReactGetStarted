@@ -1,12 +1,13 @@
 import React,{ Component } from "react";
+import Wrapper from "../components/wrapper";
 
 
 class Dashboard extends Component {
     render(){
         return (
-            <div >
-              Dashboard
-            </div>
+            <Wrapper>
+                Dashboard
+            </Wrapper>
         )
     }
 }

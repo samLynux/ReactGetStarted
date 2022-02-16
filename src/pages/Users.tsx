@@ -1,9 +1,11 @@
 import React,{ Component } from "react";
+import Wrapper from "../components/wrapper";
 
 
 class Users extends Component {
     render(){
         return (
+          <Wrapper>
             <div className="table-responsive">
               <table className="table table-striped table-sm">
                 <thead>
@@ -26,6 +28,7 @@ class Users extends Component {
                 </tbody>
               </table>
             </div>
+          </Wrapper>
         )
     }
 }
