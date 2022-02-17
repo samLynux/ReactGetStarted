@@ -1,3 +1,4 @@
+import { Role } from "./role";
 
 
 export class User{
@@ -7,7 +8,8 @@ export class User{
         public id = 0,
         public firstname = '',
         public lastname= '',
-        public email= ''
+        public email= '',
+        public role = new Role()
     ){
 
        

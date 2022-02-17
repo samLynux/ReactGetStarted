@@ -6,7 +6,7 @@ import Menu from './components/Menu';
 import Dashboard from './pages/Dashboard';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import Users from './pages/Users';
+import Users from './pages/users/Users';
 import Register from './pages/register';
 import Login from './pages/Login';
 

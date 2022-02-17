@@ -17,6 +17,7 @@ const Nav = () =>{
                 data.firstname,
                 data.lastname,
                 data.email,
+                data.role
             ));
         })();
 
