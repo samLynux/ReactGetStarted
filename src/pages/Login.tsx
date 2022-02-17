@@ -11,10 +11,10 @@ const Login = () =>{
      const submit = async  (e: SyntheticEvent) =>{
         e.preventDefault();
 
-        const {data} = await axios.post('http://localhost:8000/api/login',{
+        const {data} = await axios.post('login',{
             email,
             password
-        },{withCredentials: true})
+        })
 
         console.log(data);
         setRedirect(true);
