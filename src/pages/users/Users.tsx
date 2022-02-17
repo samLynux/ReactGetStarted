@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState }  from "react";
+import { Link } from "react-router-dom";
 import Wrapper from "../../components/wrapper";
 import { User } from "../../models/user";
 
@@ -44,6 +45,11 @@ const Users = () => {
   
         return (
           <Wrapper>
+            <div className="pt-3 pb-2 mb-3 border-bottom">
+              <Link to={'/users/create'} className="btn btn-sm btn-outline-secondary"
+                //onClick={}
+                >Add</Link>
+            </div>
             <div className="table-responsive">
               <table className="table table-striped table-sm">
                 <thead>

@@ -1,14 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Nav from './components/Nav';
-import Menu from './components/Menu';
 import Dashboard from './pages/Dashboard';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Users from './pages/users/Users';
 import Register from './pages/register';
 import Login from './pages/Login';
+import UserCreate from './pages/users/UserCreate';
 
 
 function App() {
@@ -16,10 +13,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Route path='/' exact component={Dashboard}/>
-        <Route path='/users' component={Users}/>
         <Route path='/register' component={Register}/>
         <Route path='/login' component={Login}/>
         
+        <Route path='/users' exact component={Users}/>
+        <Route path='/users/create' component={UserCreate}/>
       </BrowserRouter>
     </div>
   );
