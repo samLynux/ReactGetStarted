@@ -4,21 +4,30 @@ import { Redirect } from "react-router-dom";
 import Wrapper from "../../components/wrapper";
 import { Role } from "../../models/role";
 
-const UserCreate = () =>{
+const UserEdit = (props: any) =>{
 
     const [firstName,setFirstName] = useState('');
     const [lastName,setLastName] = useState('');
     const [email,setEmail] = useState('');
-    const [roleID,setRoleID] = useState('2');
+    const [roleID,setRoleID] = useState('');
     const [roles,setRoles] = useState([]);
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() =>{
         (
             async () => {
-                const {data} = await axios.get('roles');
+                const response = await axios.get('roles');
 
-                setRoles(data);
+                setRoles(response.data);
+
+
+                const {data}  = await axios.get(`users/${props.match.params.id}`);
+
+                setFirstName(data.firstname);
+                setLastName(data.lastname);
+                setEmail(data.email);
+                setRoleID(data.role_id);
+
             }
         )()
     }, []);
@@ -26,7 +35,7 @@ const UserCreate = () =>{
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.post('users', {
+        await axios.put(`users/${props.match.params.id}`, {
             firstname: firstName,
             lastname: lastName,
             email,
@@ -46,23 +55,26 @@ const UserCreate = () =>{
           
                 <div className="mb-3">
                     <label>First name</label>
-                    <input className="form-control" onChange={e => setFirstName(e.target.value)}/>
+                    <input className="form-control" 
+                    defaultValue={firstName} onChange={e => setFirstName(e.target.value)}/>
                 </div>
 
                 <div className="mb-3">
                     <label>Last name</label>
-                    <input className="form-control" onChange={e => setLastName(e.target.value)}/>
+                    <input className="form-control"
+                    defaultValue={lastName} onChange={e => setLastName(e.target.value)}/>
                 </div>
 
                 <div className="mb-3">
                     <label>Email</label>
-                    <input className="form-control" onChange={e => setEmail(e.target.value)}/>
+                    <input className="form-control"
+                    defaultValue={email} onChange={e => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="mb-3">
                     <label>Role</label>
                     <select className="form-control"
-                     onChange={e => setRoleID(e.target.value)}>
+                    value={roleID} onChange={e => setRoleID(e.target.value)}>
                         {roles.map((r: Role) => {
                             return (
                                 <option key={r.id} value={r.id}>
@@ -80,4 +92,4 @@ const UserCreate = () =>{
     )
 }
 
-export default UserCreate
+export default UserEdit

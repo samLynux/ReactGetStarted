@@ -6,6 +6,8 @@ import Users from './pages/users/Users';
 import Register from './pages/register';
 import Login from './pages/Login';
 import UserCreate from './pages/users/UserCreate';
+import UserEdit from './pages/users/UserEdit';
+import Roles from './pages/roles/Roles';
 
 
 function App() {
@@ -18,6 +20,9 @@ function App() {
         
         <Route path='/users' exact component={Users}/>
         <Route path='/users/create' component={UserCreate}/>
+        <Route path='/users/:id/edit' component={UserEdit}/>
+
+        <Route path='/roles' exact component={Roles}/>
       </BrowserRouter>
     </div>
   );
