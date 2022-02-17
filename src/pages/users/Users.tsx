@@ -33,6 +33,14 @@ const Users = () => {
       setPage(page - 1);
     }
   }
+
+  const del = async (id:number) => {
+    if(window.confirm("are you sure?")){
+      await axios.delete(`users/${id}`);
+
+      setUsers(users.filter((u: User) => u.id !== id));
+    }
+  }
   
         return (
           <Wrapper>
@@ -55,7 +63,13 @@ const Users = () => {
                         <td>{user.firstname} {user.lastname}</td>
                         <td>{user.email}</td>
                         <td>{user.role.name}</td>
-                        <td></td>
+                        <td>
+                          <div className="btn-group mr-2">
+                            <a href="#" className="btn btn-sm btn-outline-secondary"
+                              onClick={() => del(user.id)}
+                             >Delete</a>
+                          </div>
+                        </td>
                       </tr> 
                     )
                   })}
