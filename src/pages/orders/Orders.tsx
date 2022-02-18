@@ -10,12 +10,12 @@ import { Product } from "../../models/product";
 
 const hide = {
     maxHeight: 0,
-    transition: '1000ms ease-in'
+    transition: '250ms ease-in'
 }
 
 const show = {
     maxHeight: '150px',
-    transition: '1000ms ease-out'
+    transition: '250ms ease-out'
 }
 
 const Orders = () =>{
@@ -39,25 +39,27 @@ const Orders = () =>{
     )()
     }, [page]);
 
-    const del = async (id:number) => {
-        if(window.confirm("are you sure?")){
-          await axios.delete(`orders/${id}`);
-    
-          setOrders(orders.filter((u: Product) => u.id !== id));
-        }
-    }
 
     const select = async (id:number) => {
         setSelected(selected === id ? 0 : id);
     }
 
+    const handleExport = async () => {
+        const {data} = await axios.post(`export`,{}, {responseType: 'blob'});
+        const blob = new Blob([data], {type: 'text/csv'});
+        const url = window.URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'orders.csv';
+        link.click();
+
+    }
     
 
     return (
         <Wrapper>
             <div className="pt-3 pb-2 mb-3 border-bottom">
-              <Link to={'/orders/create'} className="btn btn-sm btn-outline-secondary"
-                >Add</Link>
+              <a href="#" className="btn btn-sm btn-outline-secondary" onClick={handleExport}>Export</a>
             </div>
             <div className="pt-3 pb-2 mb-3 border-bottom">
             </div>
@@ -82,9 +84,6 @@ const Orders = () =>{
                                     <td>{order.email}</td>
                                     <td>{order.total}</td>
                                     <td>
-                                    <div className="btn-group mr-2">
-                                        <Link to={`/orders/${order.id}/edit`} className="btn btn-sm btn-outline-secondary">Edit</Link>
-                                    </div>
                                     <div className="btn-group mr-2">
                                         <a href="#" className="btn btn-sm btn-outline-secondary"
                                         onClick={() => select(order.id)}
