@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Paginator from "../../components/Paginator";
 import Wrapper from "../../components/wrapper";
 import { Product } from "../../models/product";
 
@@ -31,17 +32,7 @@ const Products = () =>{
         }
     }
 
-    const next = () => {
-        if(page < lastPage){
-          setPage(page + 1);
-        }
-      }
     
-      const prev = () => {
-        if(page > 1){
-          setPage(page - 1);
-        }
-      }
 
     return (
         <Wrapper>
@@ -89,16 +80,7 @@ const Products = () =>{
                 </tbody>
               </table>
             </div>
-            <nav>
-              <ul className="pagination">
-                <li className="page-item">
-                  <a href="#" className="page-link" onClick={prev}>Previous</a>
-                </li>
-                <li className="page-item">
-                  <a href="#" className="page-link" onClick={next}>Next</a>
-                </li>
-              </ul>
-            </nav>
+            <Paginator page={page} lastpage={lastPage} pageChanged={setPage}/>
         </Wrapper>
     );
 };
