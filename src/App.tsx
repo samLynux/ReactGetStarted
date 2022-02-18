@@ -14,6 +14,7 @@ import Products from './pages/products/products';
 import ProductCreate from './pages/products/ProductCreate';
 import ProductEdit from './pages/products/ProductEdit';
 import Orders from './pages/orders/Orders';
+import Profile from './pages/Profile';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/' exact component={Dashboard}/>
         <Route path='/register' component={Register}/>
         <Route path='/login' component={Login}/>
+        <Route path='/profile' component={Profile}/>
         
         <Route path='/users' exact component={Users}/>
         <Route path='/users/create' component={UserCreate}/>
