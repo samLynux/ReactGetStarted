@@ -7,12 +7,25 @@ import { Order } from "../../models/order";
 import { OrderItem } from "../../models/order-item";
 import { Product } from "../../models/product";
 
+
+const hide = {
+    maxHeight: 0,
+    transition: '1000ms ease-in'
+}
+
+const show = {
+    maxHeight: '150px',
+    transition: '1000ms ease-out'
+}
+
 const Orders = () =>{
 
     
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
+
+  const [selected, setSelected] = useState(0);
   
   
   useEffect(() =>{
@@ -34,6 +47,10 @@ const Orders = () =>{
         }
     }
 
+    const select = async (id:number) => {
+        setSelected(selected === id ? 0 : id);
+    }
+
     
 
     return (
@@ -45,7 +62,7 @@ const Orders = () =>{
             <div className="pt-3 pb-2 mb-3 border-bottom">
             </div>
             <div className="table-responsive">
-              <table className="table table-striped table-sm">
+              <table className="table table-sm">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -70,14 +87,15 @@ const Orders = () =>{
                                     </div>
                                     <div className="btn-group mr-2">
                                         <a href="#" className="btn btn-sm btn-outline-secondary"
-                                        onClick={() => del(order.id)}
+                                        onClick={() => select(order.id)}
                                         >View</a>
                                     </div>
                                     </td>
                                 </tr> 
                                 <tr >
                                     <td colSpan={5}>
-                                        <div>
+                                        <div className="overflow-hidden" 
+                                            style={selected === order.id ? show : hide}>
                                             <table className="table table-sm">
                                                 <thead>
                                                     <tr>
