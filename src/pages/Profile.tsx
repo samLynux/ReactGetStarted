@@ -1,10 +1,13 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { Dispatch, SyntheticEvent, useEffect, useState } from "react";
 import * as c3 from 'c3';
 import Wrapper from "../components/wrapper";
 import axios from "axios";
+import { User } from "../models/user";
+import { connect } from "react-redux";
+import { setUser } from "../redux/actions/setUserAction";
 
 
-const Profile = () => {
+const Profile = (props: {user: User, setUser: (user:User) => void}, ) => {
     const [firstName,setFirstName] = useState('')
     const [lastName,setLastName] = useState('')
     const [email,setEmail] = useState('')
@@ -12,28 +15,29 @@ const Profile = () => {
     const [passwordConfirm,setPasswordConfirm] = useState('')
 
     useEffect(() => {
-        (
-            async () => {
-                const {data} = await axios.get('user');
-
-                setFirstName(data.firstname)
-                setLastName(data.lastname)
-                setEmail(data.email)
-            }
-        )()
-    }, [])
+        
+        setFirstName(props.user.firstname);
+        setLastName(props.user.lastname);
+        setEmail(props.user.email);
+            
+    }, [props.user]);
 
     const infoSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.put(`users/info`, {
+        const {data} = await axios.put(`users/info`, {
             firstname: firstName,
             lastname: lastName,
             email,
         });
-        console.log();
         
-        //setRedirect(true);
+        props.setUser(new User(
+            data.id,
+            data.firstname,
+            data.lastname,
+            data.email,
+            data.role
+        ));
     }
 
     const passwordSubmit = async (e: SyntheticEvent) => {
@@ -94,4 +98,16 @@ const Profile = () => {
     
 }
 
-export default Profile
+const maspStateToProps = (state: {user: User}) => {
+    return {
+        user: state.user
+    };
+}
+
+const maspDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        setUser: (user: User) => dispatch(setUser(user))
+    };
+}
+
+export default connect(maspStateToProps, maspDispatchToProps) (Profile)

@@ -1,6 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { User } from "../models/user";
+import { setUser } from "../redux/actions/setUserAction";
 import Menu from "./Menu";
 import Nav from "./Nav";
 
@@ -13,6 +16,14 @@ const Wrapper = (props: any) => {
        ( async () =>{
             try{
                 const {data} = await axios.get('user');
+
+                props.setUser(new User(
+                    data.id,
+                    data.firstname,
+                    data.lastname,
+                    data.email,
+                    data.role
+                ));
             }catch(e){
                 setRedirect(true);
             }
@@ -41,4 +52,16 @@ const Wrapper = (props: any) => {
     
 }
 
-export default Wrapper;
+const maspStateToProps = (state: {user: User}) => {
+    return {
+        user: state.user
+    };
+}
+
+const maspDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        setUser: (user: User) => dispatch(setUser(user))
+    };
+}
+
+export default connect(maspStateToProps, maspDispatchToProps) (Wrapper);
